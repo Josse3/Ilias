@@ -1,24 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
+import Toolbar from './components/Toolbar/Toolbar';
+import Reader from './components/Reader/Reader';
+
 function App() {
+  const [userInput, setUserInput] = useState({}); // User input, to be received from Toolbar component
+  const [visualPreference, setVisualPreference] = useState({}); // User's visual preference, to be received from Toolbar component
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Toolbar
+        transportUserInput={setUserInput}
+        updateVisualPreference={setVisualPreference}
+      />
+      <Reader
+        userInput={userInput}
+        visualPreference={visualPreference}
+      />
     </div>
   );
 }

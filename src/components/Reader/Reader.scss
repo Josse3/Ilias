@@ -1,0 +1,22 @@
+.reader {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    margin-top: 10vh;
+
+    .text-content {
+        width: max-content;
+
+        .lemma {
+            display: grid;
+            grid-gap: 3rem;
+            grid-template-columns: 1rem 1fr;
+            font-size: 1.5rem;
+
+            p:first-child {
+                font-weight: bold;
+                color: darkblue;
+            }
+        }
+    }
+}
