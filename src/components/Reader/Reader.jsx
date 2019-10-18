@@ -25,7 +25,9 @@ const Reader = props => {
             })
             .then(textResponse => {
                 const relevantXML = textResponse.split(/<\/?div(?: type="textpart" subtype="Book" n="[0-9][0-9]?")?>/)[1]; // Extracting XML body via RegExp
-                const versesXML = relevantXML.replace(/<\/?q>/g, ''); // Delete <q> and </q> elements
+                const versesXML = relevantXML
+                    .replace(/<\/?q>/g, '') // Delete <q> and </q> elements
+                    .replace(/<milestone.{1,40}\/>/g, ''); // Delete <milestone> tags
                 // Parse received XML into object
                 const versesObject = {};
                 versesXML.split('</l>').forEach(verse => {
@@ -35,6 +37,8 @@ const Reader = props => {
                         versesObject[verseNumber] = verseArray[1];
                     }
                 });
+
+                console.log(versesXML);
 
                 setTextContent(versesObject);
             });
