@@ -3,12 +3,13 @@ import './Reader.css';
 
 const Reader = props => {
     const [textContent, setTextContent] = useState({});
+    const [errorModalText, setErrorModalText] = useState('');
 
     const retrieveText = () => {
         // Validate input
         const verseAdressRegexp = /\b[0-9]\.[0-9]{1,3}\b/; // Matches a verse adress, e.g. 3.1 or 6.325
         if (!verseAdressRegexp.test(props.userInput.start)) {
-            return console.log('De beginvers die u heeft ingevoerd is ongeldig. Probeer alstublieft opnieuw.');
+            return setErrorModalText('De beginvers die u heeft ingevoerd is ongeldig. Probeer alstublieft opnieuw.');
         }
 
         // Get last verse
@@ -38,21 +39,23 @@ const Reader = props => {
                     }
                 });
 
-                console.log(versesXML);
-
                 setTextContent(versesObject);
             });
     }
 
     // Query whenever user input is received
     useEffect(() => {
-        if (props.userInput) {
+        if (Object.keys(props.userInput).length) {
             retrieveText();
         }
     }, [props.userInput]);
 
     return (
         <div className="reader">
+            {errorModalText && <div className="error-modal">
+                {errorModalText}
+                <button onClick={() => setErrorModalText('')}>OK</button>
+            </div>}
             <div className="text-content">
                 {Object.entries(textContent).map(([number, verse]) => {
                     return (
