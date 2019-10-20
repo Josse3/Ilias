@@ -24,7 +24,7 @@ const Reader = props => {
         setLoading(true);
         const start = encodeURIComponent(props.userInput.start);
         const end = encodeURIComponent(lastVerse);
-        fetch(`/perseus?start=${start}&end=${end}`)
+        fetch(`/ilias/perseus?start=${start}&end=${end}`)
             .then(response => {
                 if (!response.ok) throw Error('Failed fetching text from Perseus.');
                 return response.text();

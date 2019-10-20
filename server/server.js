@@ -1,7 +1,10 @@
-const app = require('express')();
+const express = require('express');
+const app = express();
 const fetch = require('node-fetch');
 
-app.get('/perseus', (req, res) => {
+const router = express.Router();
+
+router.get('/perseus', (req, res) => {
     const start = decodeURIComponent(req.query.start);
     const end = decodeURIComponent(req.query.end);
     fetch(`https://scaife.perseus.org/library/passage/urn:cts:greekLit:tlg0012.tlg001.perseus-grc2:${start}-${end}/xml/`)
@@ -11,6 +14,8 @@ app.get('/perseus', (req, res) => {
         })
         .then(textResponse => res.send(textResponse))
 });
+
+app.use('/ilias', router);
 
 app.listen(2020, err => {
     if (err) throw err;
