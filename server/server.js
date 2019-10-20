@@ -9,7 +9,7 @@ app.get('/perseus', (req, res) => {
             if (!response.ok) throw Error('Failed fetching text from Perseus.');
             return response.text();
         })
-        .then(textResponse => console.log(textResponse))
+        .then(textResponse => res.send(textResponse))
 });
 
 app.listen(2020, err => {
