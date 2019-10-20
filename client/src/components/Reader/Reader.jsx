@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './Reader.css';
 
+import Spinner from './Spinner/Spinner';
+
 const Reader = props => {
     const [textContent, setTextContent] = useState({});
     const [errorModalText, setErrorModalText] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const retrieveText = () => {
         // Validate input
@@ -18,13 +21,16 @@ const Reader = props => {
         const lastVerse = Number(props.userInput.start.split('.')[0]) + '.' + lastVerseNumber; // Constructs last verse line adress
 
         // Fetch call
-        const queryUrl = `https://scaife.perseus.org/library/passage/urn:cts:greekLit:tlg0012.tlg001.perseus-grc2:${props.userInput.start}-${lastVerse}/xml/`;
-        fetch(`http://cors-anywhere.herokuapp.com/${queryUrl}`, { origin: 'https://scaife.perseus.org' }) // Fetching data via a cors-anywhere website
+        setLoading(true);
+        const start = encodeURIComponent(props.userInput.start);
+        const end = encodeURIComponent(lastVerse);
+        fetch(`/perseus?start=${start}&end=${end}`)
             .then(response => {
                 if (!response.ok) throw Error('Failed fetching text from Perseus.');
                 return response.text();
             })
             .then(textResponse => {
+                setLoading(false);
                 const relevantXML = textResponse.split(/<\/?div(?: type="textpart" subtype="Book" n="[0-9][0-9]?")?>/)[1]; // Extracting XML body via RegExp
                 const versesXML = relevantXML
                     .replace(/<\/?q>/g, '') // Delete <q> and </q> elements
@@ -57,6 +63,7 @@ const Reader = props => {
                 <button onClick={() => setErrorModalText('')}>OK</button>
             </div>}
             <div className="text-content">
+                {loading && <Spinner />}
                 {Object.entries(textContent).map(([number, verse]) => {
                     return (
                         <div className="lemma" key={number}>
