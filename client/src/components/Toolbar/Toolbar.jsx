@@ -7,7 +7,7 @@ const Toolbar = props => {
         amount: 10
     }); // Tracks input field input of verse numbers
     const [visualPreference, setVisualPreference] = useState({}); // Tracks input of user's visual preferences
-    const [inputChanged, setInputChanged] = useState(false); // Tracks whether or not the input fields have been changed since last submit
+    const [inputChanged, setInputChanged] = useState(true); // Tracks whether or not the input fields have been changed since last submit
     const fontFamilies = ['sans-serif', 'EB Garamond', 'Literata'] // Font families that the user can select
 
     const updateInput = event => {
