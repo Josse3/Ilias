@@ -12,7 +12,7 @@ const Reader = props => {
         // Validate input
         const verseAdressRegexp = /\b[0-9]\.[0-9]{1,3}\b/; // Matches a verse adress, e.g. 3.1 or 6.325
         if (!verseAdressRegexp.test(props.userInput.start)) {
-            return setErrorModalText('De beginvers die u heeft ingevoerd is ongeldig. Probeer alstublieft opnieuw.');
+            return setErrorModalText('Het beginvers dat u heeft ingevoerd is ongeldig. Probeer alstublieft opnieuw.');
         }
 
         // Get last verse
