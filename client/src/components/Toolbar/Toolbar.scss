@@ -1,23 +1,51 @@
+@function vh($amount) {
+    @return calc(var(--vh) * $amount); 
+  }
+
+$toolbar-color: grey;
+
+$toolbar-breakpoint-left: 624px;
+$toolbar-breakpoint-right: 624px;
+
 .toolbar {
     height: 4rem;
     width: 100vw;
-    background-color: grey;
+    background-color: $toolbar-color;
     display: grid;
     grid-template-columns: 1fr 5rem 1fr;
     align-items: center;
     padding: 0 1rem;
 
-    .left div input,
-    .right div select,
+    div input,
+    div select,
     button {
         padding: .25rem .5rem;
         border: none;
         border-radius: .5rem;
     }
 
-    .left {
-        display: flex;
+    .left-hamburger,
+    .right-hamburger {
+        .hamburger {
+            color: #eee;
+            font-size: 1.75rem;
+        }
 
+        .content {
+            background: $toolbar-color;
+            margin: 0;
+            padding: 1rem;
+            height: vh(100);
+        }
+
+        .content.shown {
+            transform: translateX(0);
+            transition: transform 500ms ease;
+        }
+    }
+
+    .left,
+    .left-hamburger {
         div {
             text-align: center;
             display: flex;
@@ -30,6 +58,28 @@
             & + div {
                 margin-left: 1rem;
             }
+        }
+    }
+
+    .left {
+        display: flex;
+
+        @media (max-width: $toolbar-breakpoint-left) {
+            display: none;
+        }
+    }
+
+    .left-hamburger {
+        display: none;
+
+        .content {
+            position: fixed;
+            left: 0;
+            transform: translateX(-130%);
+        }
+
+        @media (max-width: $toolbar-breakpoint-left) {
+            display: block;
         }
     }
 
@@ -47,10 +97,8 @@
         }
     }
 
-    .right {
-        display: flex;
-        justify-content: flex-end;
-        
+    .right,
+    .right-hamburger {
         div {
             select, 
             option {
@@ -60,6 +108,32 @@
             select {
                 margin-left: .5rem;
             }
+        }
+    }
+
+    .right,
+    .right-hamburger {
+        justify-content: flex-end;
+    }
+
+    .right {
+        display: flex;
+
+        @media (max-width: $toolbar-breakpoint-right) {
+            display: none;
+        }
+    }
+
+    .right-hamburger {
+        display: none;
+
+        .content {
+            position: fixed;
+            transform: translateX(130%);
+        }
+
+        @media (max-width: $toolbar-breakpoint-left) {
+            display: flex;
         }
     }
 }
