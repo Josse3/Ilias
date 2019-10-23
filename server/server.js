@@ -12,10 +12,10 @@ router.get('/perseus', (req, res) => {
             if (!response.ok) throw Error('Failed fetching text from Perseus.');
             return response.text();
         })
-        .then(textResponse => res.send(textResponse))
+        .then(textResponse => res.send(textResponse));
 });
 
-app.use('/ilias', router);
+app.use('/grieks', router);
 
 app.listen(2020, err => {
     if (err) throw err;
