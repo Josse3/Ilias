@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Ilias.css';
+import '../../styles/ErrorModal.css';
 
 import Toolbar from '../../components/Toolbar/Toolbar';
 import Reader from '../../components/Reader/Reader';
@@ -35,6 +35,7 @@ const Ilias = () => {
         FetchText.metric({
             start: userInput.start,
             amount: userInput.amount,
+            path: 'ilias',
             setLoading,
             setFetchedText
         });
