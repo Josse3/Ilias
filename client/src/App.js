@@ -1,23 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 
-import Toolbar from './components/Toolbar/Toolbar';
-import Reader from './components/Reader/Reader';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+import Ilias from './views/Ilias/Ilias';
 
 function App() {
-  const [userInput, setUserInput] = useState({}); // User input, to be received from Toolbar component
-  const [visualPreference, setVisualPreference] = useState({}); // User's visual preference, to be received from Toolbar component
-
   return (
     <div className="App">
-      <Toolbar
-        transportUserInput={setUserInput}
-        updateVisualPreference={setVisualPreference}
-      />
-      <Reader
-        userInput={userInput}
-        visualPreference={visualPreference}
-      />
+      <Router>
+        <Route path="/ilias" exact component={Ilias} />
+      </Router>
     </div>
   );
 }
