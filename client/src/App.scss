@@ -9,7 +9,3 @@
 html {
   font-family: sans-serif;
 }
-
-@function vh($amount) {
-  @return var(--vh) * $amount; 
-}

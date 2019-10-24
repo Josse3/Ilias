@@ -1,7 +1,3 @@
-@function vh($amount) {
-    @return calc(var(--vh) * $amount); 
-  }
-
 $toolbar-color: grey;
 
 $toolbar-breakpoint-left: 624px;
