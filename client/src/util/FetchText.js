@@ -9,7 +9,7 @@ const FetchText = {
         setLoading(true);
         start = encodeURIComponent(start);
         const end = encodeURIComponent(lastVerse);
-        fetch(`/grieks/${path}?start=${start}&end=${end}`)
+        fetch(`/grieks/perseus/${path}?start=${start}&end=${end}`)
             .then(response => {
                 if (!response.ok) throw Error('Failed fetching text from Perseus.');
                 return response.text();

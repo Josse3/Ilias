@@ -26,8 +26,8 @@ router.get('/odyssee', (req, res) => {
         .then(textResponse => res.send(textResponse));
 })
 
-app.use('/grieks', router);
+app.use('/grieks/perseus', router);
 
-app.listen(2020, err => {
+app.listen(2040, err => {
     if (err) throw err;
 })
