@@ -32,6 +32,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:2020",
-  "homepage": "https://jossecottenier.tech/ilias"
+  "proxy": "http://localhost:2040",
+  "homepage": "https://jossecottenier.tech/grieks"
 }
