@@ -72,8 +72,7 @@
 
             &::before,
             &::after {
-                content: " ";
-                white-space: pre;
+                content: "\0000a0";
                 text-decoration: none;
             }
         }
