@@ -1,7 +1,17 @@
+@import '../../styles/variables.scss';
+
 .index {
     padding: 0 2rem;
+    background: $color-primary;
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 
     h1,
+    h2,
     p {
         text-align: center;
     }
@@ -10,22 +20,9 @@
         font-size: 4.5rem;
     }
 
-    p {
-        color: grey;
-        font-size: 1.5rem;
-        font-style: italic;
-        font-weight: bold;
-    }
-
-    h2 {
-        font-size: 3rem;
-        color: #333;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-    }
-
     .tiles-container {
         display: flex;
-        justify-content: space-around;
+        justify-content: center;
         width: 80vw;
         margin: 2rem auto;
 
@@ -34,13 +31,50 @@
             color: inherit;
             
             .tile {
-                width: 20rem;
-                height: 10rem;
-                background: grey;
+                $animation_duration: 400ms;
+
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                width: 20rem;
+                height: 10rem;
+                background: $color-secondary;
+                color: #ddd;
                 font-size: 1.5rem;
+                border-radius: 1rem;
+                transition: background-color $animation_duration ease;
+
+                &:hover {
+                    background: $color-secondary-accent;
+                    transition: background-color $animation_duration ease;
+                }
+            }
+
+            & + a {
+                margin-left: 2rem;
+            }
+        }
+    }
+
+    footer {
+        position: fixed;
+        bottom: 0;
+        height: 2.5rem;
+        width: 100vw;
+        background: #333;
+        color: #ccc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        a {
+            color: inherit;
+
+            &::before,
+            &::after {
+                content: " ";
+                white-space: pre;
+                text-decoration: none;
             }
         }
     }
