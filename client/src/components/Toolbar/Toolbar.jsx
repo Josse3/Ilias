@@ -25,9 +25,10 @@ const Toolbar = props => {
     }
 
     // Update visual preference
+    const { updateVisualPreference } = props;
     useEffect(() => {
-        props.updateVisualPreference(visualPreference);
-    }, [visualPreference]);
+        updateVisualPreference(visualPreference);
+    }, [visualPreference, updateVisualPreference]);
 
     // Left side of the toolbar
     const left = (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../../styles/ErrorModal.css';
 
 import Toolbar from '../../components/Toolbar/Toolbar';
@@ -40,10 +40,6 @@ const Odyssee = () => {
             setFetchedText
         });
     }
-
-    useEffect(() => {
-        if (fetchedText) console.log(fetchedText);
-    }, [fetchedText]);
 
     return (
         <div className="odyssee">
