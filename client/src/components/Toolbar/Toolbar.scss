@@ -1,10 +1,11 @@
 @import '../../styles/variables.scss';
 
+$toolbar-height: 4rem;
 $toolbar-breakpoint-left: 624px;
-$toolbar-breakpoint-right: 624px;
+$toolbar-breakpoint-right: 690px;
 
 .toolbar {
-    height: 4rem;
+    height: $toolbar-height;
     width: 100vw;
     background-color: $color-primary;
     display: grid;
@@ -20,6 +21,11 @@ $toolbar-breakpoint-right: 624px;
         border-radius: .5rem;
     }
 
+    img {
+        height: 3rem;
+        margin-left: 1rem;
+    }
+
     .left-hamburger,
     .right-hamburger {
         .hamburger {
@@ -31,7 +37,7 @@ $toolbar-breakpoint-right: 624px;
             background: $color-primary;
             margin: 0;
             padding: 1rem;
-            height: vh(100);
+            transition: transform 500ms ease;
         }
 
         .content.shown {
@@ -50,15 +56,15 @@ $toolbar-breakpoint-right: 624px;
             input {
                 margin-top: .25rem;
             }
-
-            & + div {
-                margin-left: 1rem;
-            }
         }
     }
 
     .left {
         display: flex;
+
+        div + div {
+            margin-left: 1rem;
+        }
 
         @media (max-width: $toolbar-breakpoint-left) {
             display: none;
@@ -71,7 +77,13 @@ $toolbar-breakpoint-right: 624px;
         .content {
             position: fixed;
             left: 0;
-            transform: translateX(-130%);
+            top: $toolbar-height;
+            bottom: 0;
+            transform: translateX(-100%);
+
+            div + div {
+                margin-top: 1rem;
+            }
         }
 
         @media (max-width: $toolbar-breakpoint-left) {
@@ -115,6 +127,11 @@ $toolbar-breakpoint-right: 624px;
     .right {
         display: flex;
 
+        div {
+            display: flex;
+            align-items: center;
+        }
+
         @media (max-width: $toolbar-breakpoint-right) {
             display: none;
         }
@@ -125,10 +142,24 @@ $toolbar-breakpoint-right: 624px;
 
         .content {
             position: fixed;
-            transform: translateX(130%);
+            top: $toolbar-height;
+            bottom: 0;
+            right: 0;
+            transform: translateX(100%);
+            transition: transform 500ms ease;
+
+            div {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                select {
+                    margin: 1rem 0;
+                }
+            }
         }
 
-        @media (max-width: $toolbar-breakpoint-left) {
+        @media (max-width: $toolbar-breakpoint-right) {
             display: flex;
         }
     }

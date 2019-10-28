@@ -23,6 +23,7 @@
     .tiles-container {
         display: flex;
         justify-content: center;
+        align-items: center;
         width: 80vw;
         margin: 2rem auto;
 
@@ -52,6 +53,15 @@
 
             & + a {
                 margin-left: 2rem;
+            }
+        }
+
+        @media (max-width: 700px) {
+            flex-direction: column;
+
+            a + a {
+                margin-left: 0;
+                margin-top: 2rem;
             }
         }
     }
