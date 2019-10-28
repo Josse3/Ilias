@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './Toolbar.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+
+import HomeButtonImg from './home-icon-grey.png';
 
 const Toolbar = props => {
     const [visualPreference, setVisualPreference] = useState({}); // Tracks input of user's visual preferences
     const [inputChanged, setInputChanged] = useState(true); // Tracks whether or not the input fields have been changed since last submit
     const fontFamilies = ['sans-serif', 'EB Garamond', 'Literata'] // Font families that the user can select
 
-    const [hamburgerShow, setHamburgerShown] = useState({
+    const [hamburgerShown, setHamburgerShown] = useState({
         left: false,
         right: false
     }); // Tracks which hamburger menus are being shown
@@ -46,7 +49,7 @@ const Toolbar = props => {
     const right = (
         <div>
             Lettertype:
-    <select name="fontFamily" onChange={e => setVisualPreference({ ...visualPreference, fontFamily: e.target.value })}>
+            <select name="fontFamily" onChange={e => setVisualPreference({ ...visualPreference, fontFamily: e.target.value })}>
                 {fontFamilies.map(fontFamily => {
                     return (
                         <option
@@ -58,6 +61,9 @@ const Toolbar = props => {
                     );
                 })}
             </select>
+            <Link to="/">
+                <img src={HomeButtonImg} alt="Home button" />
+            </Link>
         </div >
     );
 
@@ -67,18 +73,18 @@ const Toolbar = props => {
                 {left}
             </div>
             <div className="left-hamburger">
-                <div className="hamburger" onClick={() => setHamburgerShown({ ...hamburgerShow, left: true })}>
+                <div className="hamburger" onClick={() => setHamburgerShown({ ...hamburgerShown, left: hamburgerShown.left ? false : true })}>
                     <FontAwesomeIcon icon={faBars} />
                 </div>
-                <div className={hamburgerShow.left ? "content" : "content shown"}>{left}</div>
+                <div className={hamburgerShown.left ? "content shown" : "content"}>{left}</div>
             </div>
             <button onClick={fetchText} disabled={inputChanged ? false : true}>Ἀγε!</button>
             <div className="right">
                 {right}
             </div>
-            <div className="right-hamburger">
+            <div className="right-hamburger" onClick={() => setHamburgerShown({ ...hamburgerShown, right: hamburgerShown.right ? false : true })}>
                 <div className="hamburger"><FontAwesomeIcon icon={faBars} /></div>
-                <div className="content">{right}</div>
+                <div className={hamburgerShown.right ? "content shown" : "content"}> {right}</div>
             </div>
         </div>
     );
