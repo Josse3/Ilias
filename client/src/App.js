@@ -10,7 +10,7 @@ import Odyssee from './views/Odyssee/Odyssee';
 function App() {
   return (
     <div className="App">
-      <Router>
+      <Router basename={"/grieks"}>
         <Switch>
           <Route path="/" exact component={Index} />
           <Route path="/ilias" exact component={Ilias} />
