@@ -7,7 +7,10 @@ const ParseXML = require('./util/ParseXML');
 
 router.get('/ilias', (req, res) => {
     const start = decodeURIComponent(req.query.start);
-    const end = decodeURIComponent(req.query.end);
+    // Get last verse
+    const firstVerseNumber = Number(start.split('.')[1]); // Extracts verse line from user input as a number
+    const lastVerseNumber = firstVerseNumber + Number(req.query.amount); // Forms last verse as a number
+    const end = Number(start.split('.')[0]) + '.' + lastVerseNumber; // Constructs last verse line adress
     fetch(`https://scaife.perseus.org/library/passage/urn:cts:greekLit:tlg0012.tlg001.perseus-grc2:${start}-${end}/xml/`)
         .then(response => {
             if (!response.ok) res.status(500).send('Failed fetching text from Perseus.');
