@@ -37,8 +37,12 @@ const Ilias = () => {
             amount: userInput.amount,
             path: 'ilias',
             setLoading,
-            setFetchedText
-        });
+            setFetchedText,
+            onError(error) {
+                setLoading(false);
+                setErrorModalText(String(error));
+            }
+        })
     }
 
     return (
