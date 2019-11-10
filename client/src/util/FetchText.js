@@ -9,36 +9,14 @@ const FetchText = {
         setLoading(true);
         start = encodeURIComponent(start);
         const end = encodeURIComponent(lastVerse);
-        fetch(`/grieks/perseus/${path}?start=${start}&end=${end}`)
+        fetch(`/grieks/${path}?start=${start}&end=${end}`)
             .then(response => {
-                if (!response.ok) throw Error('Failed fetching text from Perseus.');
-                return response.text();
+                if (!response.ok) throw Error('Failed connecting to backend.');
+                return response.json();
             })
-            .then(textResponse => {
+            .then(jsonResponse => {
                 setLoading(false);
-                let relevantXML;
-
-                if (path === 'ilias') {
-                    relevantXML = textResponse.split(/<\/?div(?: type="textpart" subtype="Book" n="[0-9][0-9]?")?>/)[1]; // Extracting XML body via RegExp
-                } else if (path === 'odyssee') {
-                    relevantXML = textResponse.split(/<\/?div(?: n="[0-9]" type="textpart" subtype="book")?>/)[1];
-                }
-
-                const versesXML = relevantXML
-                    .replace(/<\/?q>/g, '') // Delete <q> and </q> elements
-                    .replace(/<q type="unspecified">/, '') // Delete <q type="unspecified">-elements
-                    .replace(/<milestone.{1,40}\/>/g, ''); // Delete <milestone> tags
-                // Parse received XML into object
-                const versesObject = {};
-                versesXML.split('</l>').forEach(verse => {
-                    const verseArray = verse.replace('<l n="', '').replace('"', '').split('>');
-                    const verseNumber = verseArray[0];
-                    if (verseNumber !== '') {
-                        versesObject[verseNumber] = verseArray[1];
-                    }
-                });
-
-                setFetchedText(versesObject);
+                setFetchedText(jsonResponse);
             });
     }
 }
