@@ -21,10 +21,11 @@ const Metric = ({ title }) => {
 
     const updateUserInput = details => setUserInput({ ...userInput, [details.key]: details.value });
 
-    const retrieveText = async () => {
+    const retrieveText = async start => {
+        start = start ? start : userInput.start;
         // Validate input
         const verseAdressRegexp = /\b[0-9]\.[0-9]{1,3}\b/; // Matches a verse adress, e.g. 3.1 or 6.325
-        if (!verseAdressRegexp.test(userInput.start)) {
+        if (!verseAdressRegexp.test(start)) {
             return setErrorModalText('Het beginvers dat u heeft ingevoerd is ongeldig. Probeer alstublieft opnieuw.');
         };
 
@@ -33,7 +34,7 @@ const Metric = ({ title }) => {
         }
 
         FetchText.metric({
-            start: userInput.start,
+            start: start,
             amount: userInput.amount,
             path: title,
             setLoading,
@@ -43,6 +44,32 @@ const Metric = ({ title }) => {
                 setErrorModalText(String(error));
             }
         })
+    }
+
+    const navigateBack = () => {
+        if (userInput.amount < Number(userInput.start.split('.')[1])) {
+            // Subtracting "amount" from current starting verse
+            const newFirstVerse =
+                userInput.start.split('.')[0]
+                + '.'
+                + (Number(userInput.start.split('.')[1]) - userInput.amount);
+            setUserInput({ ...userInput, start: newFirstVerse });
+            // Clearing currently displayed text
+            setFetchedText('');
+            retrieveText(newFirstVerse);
+        }
+    }
+
+    const navigateFurther = () => {
+        // Adding up "amount" to current starting verse
+        const newFirstVerse =
+            userInput.start.split('.')[0]
+            + '.'
+            + (Number(userInput.start.split('.')[1]) + userInput.amount);
+        setUserInput({ ...userInput, start: newFirstVerse });
+        // Clearing currently displayed text
+        setFetchedText('');
+        retrieveText(newFirstVerse);
     }
 
     return (
@@ -57,6 +84,8 @@ const Metric = ({ title }) => {
                 handleTextFetch={retrieveText}
                 loading={loading}
                 text={fetchedText}
+                navigateBack={navigateBack}
+                navigateFurther={navigateFurther}
             />
             {errorModalText && <div className="error-modal">
                 {errorModalText}
