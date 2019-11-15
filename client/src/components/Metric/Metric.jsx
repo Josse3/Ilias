@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import '../../styles/ErrorModal.css';
 
-import Toolbar from '../../components/Toolbar/Toolbar';
-import Reader from '../../components/Reader/Reader';
+import Toolbar from '../Toolbar/Toolbar';
+import Reader from '../Reader/Reader';
 
 import FetchText from '../../util/FetchText';
 
-const Odyssee = () => {
+const Metric = ({ title }) => {
     const [userInput, setUserInput] = useState({
         start: '1.1',
         amount: 10
@@ -35,14 +35,18 @@ const Odyssee = () => {
         FetchText.metric({
             start: userInput.start,
             amount: userInput.amount,
-            path: 'odyssee',
+            path: title,
             setLoading,
-            setFetchedText
-        });
+            setFetchedText,
+            onError(error) {
+                setLoading(false);
+                setErrorModalText(String(error));
+            }
+        })
     }
 
     return (
-        <div className="odyssee">
+        <div className={title}>
             <Toolbar
                 handleTextFetch={retrieveText}
                 updateVisualPreference={setVisualPreference}
@@ -62,4 +66,4 @@ const Odyssee = () => {
     );
 }
 
-export default Odyssee;
+export default Metric;
